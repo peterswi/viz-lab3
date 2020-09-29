@@ -1,7 +1,9 @@
 
 
 d3.csv('cities.csv', d3.autoType).then(data=>{
-	console.log('cities', data);
+	const euro=data.filter(data=>data.eu === true )
+	console.log('euro',euro);
+
+	d3.select('.city-count').text('Number of European cities: '+data.length)
 })
 
-console.log('now', data)
