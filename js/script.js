@@ -1,3 +1,5 @@
+//Part 1
+
 const width = 700;
 const height = 550;
 
@@ -15,7 +17,7 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 		.append('svg')
     	.attr('width', width)
 		.attr('height', height)
-		
+
 //trying to get tip working
 	//const tip = d3.tip().attr('class', 'd3-tip').html(function(euroData) { return euroData.country; });
 	svg.selectAll(".circles")
@@ -70,3 +72,24 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 			})
 })
 
+//Part 2
+const bcwidth=500;
+const bcheight=500;
+
+d3.csv('buildings.csv', d3.autoType).then(data=>{
+	const builData=data;
+	console.log('building data',builData)
+	builData.sort(function(a,b){
+		return b.height_m - a.height_m
+	})
+	console.log('now',builData)
+
+	const bsvg = d3.select('.buildings-plot')
+		.append('svg')
+    	.attr('width', bcwidth)
+		.attr('height', bcheight)
+	
+	bsvg.selectAll('.buildings')
+		.data(builData)
+
+})
