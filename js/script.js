@@ -11,6 +11,7 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 		.append('svg')
     	.attr('width', width)
 		.attr('height', height)
+
 	svg.selectAll(".circles")
 		.data(euroData)
 		.enter()
@@ -25,9 +26,37 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 			if (euroData.population<1000000){
 				return 4
 			}
+			else if(euroData.population>5000000){
+				return 12
+			}
 			else{
 				return 8
 			}
 		})
+		.attr('fill', function(euroData){
+			if (euroData.population<1000000){
+				return 'black'
+			}
+			else if(euroData.population>5000000){
+				return 'blue'
+			}
+			else{
+				return 'grey'
+			}
+		})
+		big=euroData.filter(euroData=> euroData.population>1000000)
+		svg.selectAll('.circles')
+			.data(big)
+			.enter()
+			.append('text')
+			.attr('dx',function(big){
+			return (big.x - 22)
+			})
+			.attr('dy',function(big){
+			return (big.y +22)
+			})
+			.text(function(big){
+			return big.city
+			})
 })
 
