@@ -45,12 +45,12 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 			}
 		})
 		big=euroData.filter(euroData=> euroData.population>1000000)
-		svg.selectAll('.circles')
+		svg.selectAll()
 			.data(big)
 			.enter()
 			.append('text')
 			.attr('dx',function(big){
-			return (big.x - 22)
+			return (big.x)
 			})
 			.attr('dy',function(big){
 			return (big.y +22)
