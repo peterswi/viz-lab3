@@ -7,11 +7,17 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 
 	d3.select('.city-count').text('Number of European cities: '+euroData.length)
 	
+
+	/* Invoke the tip in the context of your visualization */
+	
+
 	const svg = d3.select('.population-plot')
 		.append('svg')
     	.attr('width', width)
 		.attr('height', height)
-
+		
+//trying to get tip working
+	//const tip = d3.tip().attr('class', 'd3-tip').html(function(euroData) { return euroData.country; });
 	svg.selectAll(".circles")
 		.data(euroData)
 		.enter()
@@ -35,15 +41,19 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 		})
 		.attr('fill', function(euroData){
 			if (euroData.population<1000000){
-				return 'black'
+				return 'pink'
 			}
 			else if(euroData.population>5000000){
-				return 'blue'
+				return 'purple'
 			}
 			else{
-				return 'grey'
+				return 'red'
 			}
 		})
+		.on('mouseover', tip.show)
+		.on('mouseout', tip.hide)
+//tooltip not yet working
+		svg.call(tip)
 		big=euroData.filter(euroData=> euroData.population>1000000)
 		svg.selectAll()
 			.data(big)
