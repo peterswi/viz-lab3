@@ -111,7 +111,7 @@ d3.csv('buildings.csv', d3.autoType).then(data=>{
         	console.log(bldg);
 			d3.select(".img")
 			.attr('src', function(click) {
-				return '/img/'+ bldg.image
+				return 'img/'+ bldg.image
 			})
 			d3.select(".building-name")
 			.text(function(click){
