@@ -103,7 +103,7 @@ d3.csv('buildings.csv', d3.autoType).then(data=>{
 	  	.attr('fill',function(builData){
 			  //building in a nice gradient
 			let relation=builData.height_m/424
-			relation=relation*100
+			relation=relation*150
 			return "rgb(200,"+relation+",200)"
 		  })
 		.on("click", function(click){
