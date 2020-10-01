@@ -5,7 +5,6 @@ const height = 550;
 
 d3.csv('cities.csv', d3.autoType).then(data=>{
 	const euroData=data.filter(data=>data.eu === true )
-	console.log('euro',euroData);
 
 	d3.select('.city-count').text('Number of European cities: '+euroData.length)
 	
@@ -81,7 +80,7 @@ d3.csv('buildings.csv', d3.autoType).then(data=>{
 	builData.sort(function(a,b){
 		return b.height_m - a.height_m
 	})
-	console.log(builData)
+
 	const bsvg = d3.select('.buildings-plot')
 		.append('svg')
     	.attr('width', bcwidth)
@@ -108,7 +107,6 @@ d3.csv('buildings.csv', d3.autoType).then(data=>{
 		  })
 		.on("click", function(click){
 			let bldg = click.path[0].__data__
-        	console.log(bldg);
 			d3.select(".img")
 			.attr('src', function(click) {
 				return 'img/'+ bldg.image
