@@ -87,7 +87,7 @@ d3.csv('buildings.csv', d3.autoType).then(data=>{
     	.attr('width', bcwidth)
 		.attr('height', bcheight)
 	
-	bsvg.selectAll('.buildings')
+	bsvg.selectAll('.bar')
 		.data(builData)
 		.enter()
 		.append("rect")
@@ -106,6 +106,34 @@ d3.csv('buildings.csv', d3.autoType).then(data=>{
 			relation=relation*100
 			return "rgb(200,"+relation+",200)"
 		  })
+		.on("click", function(click){
+			let bldg = click.path[0].__data__
+        	console.log(bldg);
+			d3.select(".img")
+			.attr('src', function(click) {
+				return '/img/'+ bldg.image
+			})
+			d3.select(".building-name")
+			.text(function(click){
+				return bldg.building
+			})
+			d3.select(".city")
+			.text(function(click){
+				return bldg.city
+			})
+			d3.select(".height")
+			.text(function(click){
+				return bldg.height_ft 
+			})
+			d3.select(".floors")
+			.text(function(click){
+				return bldg.floors
+			})
+			d3.select(".year")
+			.text(function(click){
+				return bldg.completed
+			})
+		})
 	
 	bsvg.selectAll("titles")
 		.data(builData)
@@ -114,7 +142,7 @@ d3.csv('buildings.csv', d3.autoType).then(data=>{
 		.text(function(builData){
 			return builData.building
 		})
-		.attr("x", 0)
+		.attr("x", 10)
 		.attr("y", function(builData,i){
 	  		return 50*i + 20;
 		 })
@@ -124,10 +152,10 @@ d3.csv('buildings.csv', d3.autoType).then(data=>{
 		.enter()
 		.append('text')
 		.text(function(builData){
-			return builData.height_ft
+			return builData.height_ft +" feet"
 		})
 		.attr("text-anchor","right")
-		.attr("x", 450)
+		.attr("x", 425)
 		.attr("y", function(builData,i){
 	  		return 50*i + 20;
 		 })
