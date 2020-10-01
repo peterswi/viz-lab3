@@ -52,10 +52,10 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 				return 'red'
 			}
 		})
-		.on('mouseover', tip.show)
-		.on('mouseout', tip.hide)
+//		.on('mouseover', tip.show)
+//		.on('mouseout', tip.hide)
 //tooltip not yet working
-		svg.call(tip)
+		//svg.call(tip)
 		big=euroData.filter(euroData=> euroData.population>1000000)
 		svg.selectAll()
 			.data(big)
@@ -78,12 +78,10 @@ const bcheight=500;
 
 d3.csv('buildings.csv', d3.autoType).then(data=>{
 	const builData=data;
-	console.log('building data',builData)
 	builData.sort(function(a,b){
 		return b.height_m - a.height_m
 	})
-	console.log('now',builData)
-
+	console.log(builData)
 	const bsvg = d3.select('.buildings-plot')
 		.append('svg')
     	.attr('width', bcwidth)
@@ -91,5 +89,48 @@ d3.csv('buildings.csv', d3.autoType).then(data=>{
 	
 	bsvg.selectAll('.buildings')
 		.data(builData)
+		.enter()
+		.append("rect")
+	//	.attr("class","bars")
+		.attr("width",function(builData){
+			return builData.height_px
+		})
+		.attr("height",35)
+		.attr("x", 250)
+     	.attr("y", function(builData,i){
+        return 50*i;
+	 	 })
+	  	.attr('fill',function(builData){
+			  //building in a nice gradient
+			let relation=builData.height_m/424
+			relation=relation*100
+			return "rgb(200,"+relation+",200)"
+		  })
+	
+	bsvg.selectAll("titles")
+		.data(builData)
+		.enter()
+		.append('text')
+		.text(function(builData){
+			return builData.building
+		})
+		.attr("x", 0)
+		.attr("y", function(builData,i){
+	  		return 50*i + 20;
+		 })
+
+	bsvg.selectAll("heights")
+		.data(builData)
+		.enter()
+		.append('text')
+		.text(function(builData){
+			return builData.height_ft
+		})
+		.attr("text-anchor","right")
+		.attr("x", 450)
+		.attr("y", function(builData,i){
+	  		return 50*i + 20;
+		 })
+		 
 
 })
